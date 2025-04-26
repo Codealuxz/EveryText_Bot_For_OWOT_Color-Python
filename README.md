@@ -52,11 +52,7 @@ Exemple de texte avec couleurs :
 [color=#0000FF]Texte en bleu[/color]
 ```
 
-## Notes supplémentaires
-
-- Vous pouvez ajuster le délai entre les requêtes (en secondes) pour éviter les limitations du serveur.
-- Choisissez le serveur OWOT approprié dans le menu déroulant.
-- Si vous arrêtez le bot, vous devrez relancer le script `V5.py`.
+#### Vous pouvez utilisé mon site pour convertire une image en ascii art color [everytextcolor.netlify.app](https://everytextcolor.netlify.app/)
 
 Amusez-vous à créer et partager votre art ASCII coloré !
 
