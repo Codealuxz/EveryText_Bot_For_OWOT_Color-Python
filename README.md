@@ -7,7 +7,7 @@ Un bot pour le site yourworldoftext.com. Ce bot utilise les websockets pour affi
 
 Assurez-vous que Python est installé sur votre machine. Ensuite, installez les bibliothèques requises avec la commande suivante :
 
-```bash
+```
 pip install websocket-client customtkinter
 ```
 
@@ -17,8 +17,8 @@ pip install websocket-client customtkinter
 
 Une fois les étapes précédentes terminées, lancez le fichier Python contenant le bot avec la commande suivante :
 
-```bash
-python V5.py
+```
+python main.py
 ```
 
 ---
