@@ -1,41 +1,62 @@
-# EveryText-for-YWOT
-Is a bot of the web site yourworldoftext.com . The bot use websocket for build your ascii art in the map.
+# EveryText-pour-YWOT
+Un bot pour le site yourworldoftext.com. Ce bot utilise les websockets pour afficher votre art ASCII sur la carte.
 
 ---
 
-## 1. Installing Required Packages
+## 1. Installation des paquets requis
 
-Make sure Python is installed on your machine. Then, install the required libraries using the following command:
+Assurez-vous que Python est installé sur votre machine. Ensuite, installez les bibliothèques requises avec la commande suivante :
 
 ```bash
-pip install json time websocket-client customtkinter tk
+pip install websocket-client customtkinter
 ```
 
 ---
 
-## 2. Running the Bot
+## 2. Lancement du bot
 
-Once the previous steps are complete, run the Python file containing the bot using the following command:
+Une fois les étapes précédentes terminées, lancez le fichier Python contenant le bot avec la commande suivante :
 
 ```bash
-python main.py
+python V5.py
 ```
 
 ---
 
-## 3. Setting the Bot
+## 3. Configuration du bot
 
-You need to set the bot in the interface:
+Vous devez configurer le bot dans l'interface :
 
-- For the ASCII art, it is a file. Place it here:  
-![alt text](https://raw.githubusercontent.com/Codealuxz/EveryText-for-YWOT/refs/heads/main/img/file_image.png)
+- Pour l'art ASCII, sélectionnez un fichier texte :  
+![image du fichier](https://raw.githubusercontent.com/Codealuxz/EveryText-for-YWOT/refs/heads/main/img/file_image.png)
   
-- For the coordinates, set them here:  
-![alt text](https://raw.githubusercontent.com/Codealuxz/EveryText-for-YWOT/refs/heads/main/img/co_image.png)
+- Pour les coordonnées, définissez-les ici :  
+![image des coordonnées](https://raw.githubusercontent.com/Codealuxz/EveryText-for-YWOT/refs/heads/main/img/co_image.png)
 
-## Additional Notes
+- Pour utiliser les couleurs, cochez la case "Use Colors" et assurez-vous que votre fichier contient le formatage BBCode correct.
 
-If you stop the bot, you need to relaunch the main script `main.py`.
+## Utilisation des couleurs
 
-Have fun creating and sharing your ASCII art!
+Le bot prend en charge les couleurs via les balises BBCode. Format :
+
+```
+[color=#HEX]texte[/color]
+```
+
+Où HEX est le code couleur hexadécimal (ex: FF0000 pour rouge).
+
+Exemple de texte avec couleurs :
+```
+[color=#FF0000]Texte en rouge[/color]
+[color=#00FF00]Texte en vert[/color]
+[color=#0000FF]Texte en bleu[/color]
+```
+
+## Notes supplémentaires
+
+- Vous pouvez ajuster le délai entre les requêtes (en secondes) pour éviter les limitations du serveur.
+- Choisissez le serveur OWOT approprié dans le menu déroulant.
+- Si vous arrêtez le bot, vous devrez relancer le script `V5.py`.
+
+Amusez-vous à créer et partager votre art ASCII coloré !
 
