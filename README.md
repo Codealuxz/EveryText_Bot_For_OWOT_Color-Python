@@ -1,4 +1,4 @@
-# EveryText-pour-YWOT
+# EveryText-pour-OWOT
 Un bot pour le site yourworldoftext.com. Ce bot utilise les websockets pour afficher votre art ASCII sur la carte.
 
 ---
