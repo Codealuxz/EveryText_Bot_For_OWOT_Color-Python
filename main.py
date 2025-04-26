@@ -5,7 +5,6 @@ import customtkinter as ctk
 import threading
 from tkinter import filedialog, messagebox, ttk
 
-# Global variables
 POS_X = -250
 POS_Y = -270
 file_path = ""
@@ -20,7 +19,7 @@ ws = None
 reconnect_attempts = 0
 max_reconnect_attempts = 5
 websocket_url = "wss://www.yourworldoftext.com/ws/"
-request_delay = 0.1  # Default delay in seconds
+request_delay = 0.1  
 use_colors = False
 
 websocket_urls = {
@@ -33,18 +32,18 @@ websocket_urls = {
 
 def parse_bbcode_line(line):
     import re
-    # Remove unnecessary tags
+
     line = re.sub(r'\[size=.*?\]|\[font=.*?\]', '', line)
     line = re.sub(r'\[/size\]|\[/font\]', '', line)
-    
+
     pattern = re.compile(r'\[color=#([0-9a-fA-F]{6})\](.*?)\[/color\]')
     matches = pattern.findall(line)
     chars = []
     colors = []
     for match in matches:
         color, char = match
-        chars.extend(char)  # Add each character separately
-        colors.extend([int(color, 16)] * len(char))  # Repeat the color for each character
+        chars.extend(char)  
+        colors.extend([int(color, 16)] * len(char))  
     return chars, colors
 
 def send_data():
@@ -59,7 +58,7 @@ def send_data():
             continue
 
         try:
-            # Position data
+
             position = json.dumps({
                 "kind": "position",
                 "request_id": trame,
@@ -68,7 +67,6 @@ def send_data():
             ws.send(position)
             trame += 1
 
-            # Cursor data
             cursor = json.dumps({
                 "kind": "cursor",
                 "request_id": trame,
@@ -83,7 +81,6 @@ def send_data():
             ws.send(cursor)
             trame += 1
 
-            # Write data
             write_object = {"kind": "write", "request_id": trame, "edits": []}
             nbr = 1
             while nbr <= 100 and is_running:
@@ -115,7 +112,7 @@ def send_data():
             write = json.dumps(write_object)
             ws.send(write)
             trame += 1
-            time.sleep(request_delay)  # Delay between requests
+            time.sleep(request_delay)  
         except websocket.WebSocketConnectionClosedException:
             console_log("WebSocket connection closed.")
             break
@@ -135,7 +132,7 @@ def on_error(websocket, error):
 def on_close(websocket, close_status_code, close_msg):
     global reconnect_attempts
     console_log(f"WebSocket closed: {close_status_code} - {close_msg}")
-    time.sleep(0.1)  # Add a slight delay to avoid overwhelming the server
+    time.sleep(0.1)  
     if is_running and reconnect_attempts < max_reconnect_attempts:
         reconnect_attempts += 1
         console_log(f"Reconnecting... Attempt {reconnect_attempts}")
@@ -207,35 +204,29 @@ def console_log(message):
     console.insert(ctk.END, message + "\n")
     console.see(ctk.END)
 
-# Fonction pour afficher les crédits
 def show_credits():
     messagebox.showinfo(
         "Crédits",
         "Développeurs :\n- Codealuxz \n- Guerric \n- 𝑅𝑒𝒹𝓌𝒶𝓁𝓁𝓎 \n\nTOW TEAM © !"
     )
 
-# Fonction pour réinitialiser la barre de progression
 def reset_progress_bar():
     progress_bar['value'] = 0
 
-# Fonction pour mettre à jour la barre de progression
 def update_progress_bar(value):
     progress_bar['value'] = value
 
-# CustomTkinter Configuration
-ctk.set_appearance_mode("dark")  # Dark mode
-ctk.set_default_color_theme("blue")  # Blue theme
+ctk.set_appearance_mode("dark")  
+ctk.set_default_color_theme("blue")  
 
 app = ctk.CTk()
 app.title("ASCII Art WebSocket Bot")
 app.geometry("800x600")
 app.resizable(False, False)
 
-# Title
 title_label = ctk.CTkLabel(app, text="ASCII Art WebSocket Bot", font=("Arial", 20, "bold"))
 title_label.pack(pady=10)
 
-# File selection
 file_frame = ctk.CTkFrame(app)
 file_frame.pack(pady=10, fill="x", padx=20)
 
@@ -244,7 +235,6 @@ file_entry.pack(side="left", expand=True, fill="x", padx=5)
 file_button = ctk.CTkButton(file_frame, text="Browse", command=select_file)
 file_button.pack(side="right", padx=5)
 
-# Coordinates
 coord_frame = ctk.CTkFrame(app)
 coord_frame.pack(pady=10)
 
@@ -262,7 +252,6 @@ entry_y = ctk.CTkEntry(coord_frame, width=100, placeholder_text="Y Coordinate")
 entry_y.insert(0, str(POS_Y))
 entry_y.grid(row=0, column=3, padx=10)
 
-# WebSocket selection
 websocket_frame = ctk.CTkFrame(app)
 websocket_frame.pack(pady=10)
 
@@ -271,9 +260,8 @@ websocket_label.grid(row=0, column=0, padx=10)
 
 websocket_combobox = ttk.Combobox(websocket_frame, values=list(websocket_urls.keys()))
 websocket_combobox.grid(row=0, column=1, padx=10)
-websocket_combobox.current(0)  # Set default value
+websocket_combobox.current(0)  
 
-# Delay selection
 delay_frame = ctk.CTkFrame(app)
 delay_frame.pack(pady=10)
 
@@ -284,7 +272,6 @@ delay_entry = ctk.CTkEntry(delay_frame, width=100, placeholder_text="0.1")
 delay_entry.insert(0, "0.1")
 delay_entry.grid(row=0, column=1, padx=10)
 
-# Color option
 color_frame = ctk.CTkFrame(app)
 color_frame.pack(pady=10)
 
@@ -298,11 +285,9 @@ def toggle_use_colors():
     global use_colors
     use_colors = not use_colors
 
-# Start button (larger and on its own row)
 button_start = ctk.CTkButton(app, text="Start", command=start_websocket, fg_color="green", font=("Arial", 18))
 button_start.pack(pady=20, padx=10)
 
-# Pause and Stop buttons
 button_frame = ctk.CTkFrame(app)
 button_frame.pack(pady=10)
 
@@ -312,15 +297,12 @@ button_pause.grid(row=0, column=0, padx=10)
 button_stop = ctk.CTkButton(button_frame, text="Stop", command=stop_bot, fg_color="red", width=120)
 button_stop.grid(row=0, column=1, padx=10)
 
-# Progress bar
 progress_bar = ttk.Progressbar(app, orient="horizontal", length=400, mode="determinate")
 progress_bar.pack(pady=20)
 
-# Encapsuler la console et le bouton "Clear Console" dans un cadre
 console_frame = ctk.CTkFrame(app)
 console_frame.pack(pady=10, fill="both", expand=True)
 
-# Ajouter un bouton "Crédits" en bas de l'application
 credits_button = ctk.CTkButton(
     app,
     text="Crédits",
@@ -329,7 +311,6 @@ credits_button = ctk.CTkButton(
 )
 credits_button.pack(side="bottom", pady=10)
 
-# Bouton pour effacer la console, aligné en haut à gauche
 clear_button = ctk.CTkButton(
     console_frame,
     text="Clear Console",
@@ -340,7 +321,6 @@ clear_button = ctk.CTkButton(
 )
 clear_button.pack(anchor="nw", padx=5, pady=5)
 
-# Console pour les messages
 console = ctk.CTkTextbox(
     console_frame,
     wrap="word",
@@ -352,5 +332,4 @@ console = ctk.CTkTextbox(
 )
 console.pack(fill="both", expand=True, padx=5, pady=(0, 5))
 
-# Run the application
 app.mainloop()
